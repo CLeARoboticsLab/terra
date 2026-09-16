@@ -1,0 +1,81 @@
+type: ernest_no-vel_no-devs
+
+obs:
+  types:
+    - name: roll_pitch
+      idx: 5
+      dim: 2
+      noise: 0.025
+    - name: wheel_1_force
+      idx: 9
+      dim: 3
+      noise: 10.0
+    - name: wheel_1_torque
+      idx: 12
+      dim: 3
+      noise: 2.0
+    - name: wheel_2_force
+      idx: 15
+      dim: 3
+      noise: 10.0
+    - name: wheel_2_torque
+      idx: 18
+      dim: 3
+      noise: 2.0
+    - name: wheel_3_force
+      idx: 21
+      dim: 3
+      noise: 10.0
+    - name: wheel_3_torque
+      idx: 24
+      dim: 3
+      noise: 2.0
+    - name: wheel_4_force
+      idx: 27
+      dim: 3
+      noise: 10.0
+    - name: wheel_4_torque
+      idx: 30
+      dim: 3
+      noise: 2.0
+    - name: elevation_sampling
+      idx: 33
+      dim: 210
+      noise: 0.005
+
+acts:
+  dim: 3
+  types:
+    - name: velocity
+      idx: 0
+    - name: qd_yaw
+      idx: 1
+    - name: qd_roll
+      idx: 2
+
+poses:
+  types:
+    - name: position
+      idx: 0
+      dim: 2
+      meas_noise: 0.005
+      plan_noise: 0.01
+    - name: yaw
+      idx: 2
+      dim: 1
+      meas_noise: 0.025
+      plan_noise: 0.05
+    - name: q_angles
+      idx: 3
+      dim: 2
+      meas_noise: 0.01
+      plan_noise: 0.1
+  min_plan_interval: 2 # Minimum number of interpolated points between poses
+  max_plan_interval: 5 # Maximum number of interpolated points between poses
+  se2_idxs:
+    x: 0
+    y: 1
+    yaw: 2
+  q_idxs:
+    q_yaw: 3
+    q_roll: 4

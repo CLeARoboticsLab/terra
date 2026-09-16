@@ -1,0 +1,32 @@
+defaults:
+  - system: ernest_no-vel_no-devs
+  - _self_
+  - override hydra/job_logging: disabled  # disable hydra logging
+
+data_dir:
+output_dir:
+
+process_replay_buffers: true  # Uses for world modeling
+
+history_length: 10
+prediction_length: 10
+end_padding: 0
+pad_with_initial_state: true  # If true, add history_length steps to the beginning of each episode
+ignore_max_plan_interval: true  # Set to true for behavior cloning and world modeling
+
+criteria:
+  step:
+    min_pos_x: 2.0
+  ripples:
+    min_pos_x: 3.0
+  rubble:
+    min_pos_x: 3.0
+  slope:
+    min_pos_x: 2.0
+  flat:  # no criteria for flat environment
+
+# disable hydra outputs
+hydra:
+  output_subdir: null
+  run:
+    dir: .

@@ -1,0 +1,149 @@
+checkpoint:
+  checkpoint_dir: /tmp/terra_example_ckpts
+  enabled: true
+  max_to_keep: null
+  resume_checkpoint: null
+data:
+  dataset_dir: /tmp/terra_example_ckpt_data
+  num_test_workers: 0
+  num_train_workers: 0
+  prefetch_factor: null
+data_mods:
+  add_noise: true
+loss:
+  component_weights:
+    poses:
+    - 10.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+  type: world_model
+  weights:
+    obs_loss: 1.0
+    poses_loss: 1.0
+model:
+  dataset:
+    expert_data_only: false
+    history_length: 10
+    prediction_length: 10
+    type: world_model
+  dropout:
+    attention: 0.05
+    mlp: 0.2
+  dynamics:
+    attention:
+      heads: 8
+      layers: 4
+      mask: causal
+      mlp_hidden_size_factor: 4
+    decoder:
+      layers: 2
+      mlp_hidden_size_factor: 2
+  embed_dim: 64
+  embedding:
+    acts_layers: 0
+    future_actions_layers: 0
+    mlp_hidden_size_factor: 2
+    obs_layers: 2
+    poses_hist_layers: 0
+  type: world_model
+run_name: world_model
+scaler_params_struct:
+  acts: 3
+  obs: 236
+  poses: 5
+system:
+  acts:
+    dim: 3
+    types:
+    - idx: 0
+      name: velocity
+    - idx: 1
+      name: qd_yaw
+    - idx: 2
+      name: qd_roll
+  obs:
+    types:
+    - dim: 2
+      idx: 5
+      name: roll_pitch
+      noise: 0.025
+    - dim: 3
+      idx: 9
+      name: wheel_1_force
+      noise: 10.0
+    - dim: 3
+      idx: 12
+      name: wheel_1_torque
+      noise: 2.0
+    - dim: 3
+      idx: 15
+      name: wheel_2_force
+      noise: 10.0
+    - dim: 3
+      idx: 18
+      name: wheel_2_torque
+      noise: 2.0
+    - dim: 3
+      idx: 21
+      name: wheel_3_force
+      noise: 10.0
+    - dim: 3
+      idx: 24
+      name: wheel_3_torque
+      noise: 2.0
+    - dim: 3
+      idx: 27
+      name: wheel_4_force
+      noise: 10.0
+    - dim: 3
+      idx: 30
+      name: wheel_4_torque
+      noise: 2.0
+    - dim: 210
+      idx: 33
+      name: elevation_sampling
+      noise: 0.005
+  poses:
+    max_plan_interval: 5
+    min_plan_interval: 2
+    q_idxs:
+      q_roll: 4
+      q_yaw: 3
+    se2_idxs:
+      x: 0
+      y: 1
+      yaw: 2
+    types:
+    - dim: 2
+      idx: 0
+      meas_noise: 0.005
+      name: position
+      plan_noise: 0.01
+    - dim: 1
+      idx: 2
+      meas_noise: 0.025
+      name: yaw
+      plan_noise: 0.05
+    - dim: 2
+      idx: 3
+      meas_noise: 0.01
+      name: q_angles
+      plan_noise: 0.1
+  type: ernest_no-vel_no-devs
+training:
+  batch_size: 4
+  decay_steps: 400000
+  end_learning_rate: 0.0001
+  eval_interval: 1
+  learning_rate: 0.0002
+  max_steps: 2
+  num_epochs: 1
+  seed: 42
+  training_data_ratio: 0.9
+  warmup_steps: 1000
+wandb:
+  entity: null
+  log: false
+  project: terra_model_train

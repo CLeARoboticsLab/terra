@@ -1,0 +1,4 @@
+type: behavior_cloning_with_pose_hist
+
+weights:
+  actions_loss: 1.0

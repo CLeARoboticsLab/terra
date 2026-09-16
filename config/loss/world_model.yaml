@@ -1,0 +1,8 @@
+type: world_model
+
+weights:
+  obs_loss: 1.0
+  poses_loss: 1.0
+
+component_weights:
+  poses: [10.0, 1.0, 1.0, 1.0, 1.0]

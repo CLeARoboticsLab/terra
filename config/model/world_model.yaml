@@ -1,0 +1,31 @@
+type: world_model
+
+dataset:
+  type: world_model
+  history_length: 10
+  prediction_length: 10
+  expert_data_only: false
+
+dropout:
+  mlp: 0.2
+  attention: 0.05
+
+embed_dim: 64
+
+embedding:
+  mlp_hidden_size_factor: 2
+  obs_layers: 2
+  acts_layers: 0
+  poses_hist_layers: 0
+  future_actions_layers: 0
+
+# heads
+dynamics:
+  attention:
+    layers: 4
+    heads: 8
+    mlp_hidden_size_factor: 4
+    mask: causal  # causal or leave empty
+  decoder:
+    layers: 2
+    mlp_hidden_size_factor: 2

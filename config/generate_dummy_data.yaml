@@ -1,0 +1,16 @@
+defaults:
+  - system: ernest_no-vel_no-devs
+  - _self_
+  - override hydra/job_logging: disabled  # disable hydra logging
+
+dataset_dir:
+num_samples: 1000000
+# Must match model.dataset history/prediction lengths (and process_data.yaml).
+history_length: 10
+prediction_length: 10
+
+# disable hydra outputs
+hydra:
+  output_subdir: null
+  run:
+    dir: .

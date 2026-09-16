@@ -1,0 +1,72 @@
+# Deploy configuration: MPPI, reward function, and online adaptation (with loss_pred).
+# Loaded by deploy_mppi_adaptation_loss_pred.py (--deploy-config).
+
+mppi:
+  num_samples: 256
+  min_std: 0.001
+  init_std: 1.0
+  bc_act_std: 0.025
+  action_min: -1.0
+  action_max: 1.0
+  num_elites: 32
+  temperature: 0.25
+  momentum: 0.0
+  discount: 0.99
+  mixture_coef: 0.05
+  iterations: 6
+  action_noise: white
+  exploration_reward_weight: 0.1
+  roll_limit_enabled: false
+  roll_limit_deg: 15.0
+
+reward_fn:
+  delta_t: 0.5
+  weight_delta_x: 10.0
+  weight_y: 2.5
+  weight_bearing_dev: 0.25
+  weight_yaw: 0.5
+  weight_roll: 1.0
+  weight_yaw_action: 0.5
+  weight_roll_action: 2.0
+  weight_wheel_forces: 0.001
+  wheel_forces_huber_width: 1.0
+  huber_for_lateral_dev: false
+  weight_roll_limit: 0.0
+  roll_limit_deg: 15.0
+
+adaptation:
+  buffer_length: 64
+  lora: true
+  lora_rank: 8
+  lora_add_to:
+    - mlp
+  learning_rate: 1.0e-3
+  batch_size: 4
+  control_steps_before_adapt: 0
+  always_include_latest: 1
+  seed: 0
+  loss:
+    type: world_model_adaptation
+    weights:
+      norm_deltaW_loss: 1.0
+      obs_loss: 1.0
+      poses_loss: 1.0
+      reward_scaled_loss: 1.0
+    component_weights:
+      poses: [1.0, 1.0, 1.0, 1.0, 1.0]
+  loss_pred:
+    use_loss_pred: true
+    thresholds: [0.5]
+    class_weights: [0.5, 1.0]
+    init:
+      type: highest_loss_bin
+      prior_prob: 0.99
+    loss_pred_loss_weight: 1.0
+    attention:
+      layers: 2
+      heads: 4
+      mlp_hidden_size_factor: 2
+      mask: causal
+    decoder:
+      layers: 2
+      mlp_hidden_size_factor: 1
